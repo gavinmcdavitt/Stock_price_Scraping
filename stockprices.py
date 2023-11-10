@@ -5,9 +5,11 @@ import json
 
 MyStocks = ["VZ", "IBRX", "SNAP", "GOOGL", "MSFT", "AAPL", "AMZN", "NVDA", "META", "TSLA"]
 StockData = []
+'''''''''
 def getData(symbol):
-    header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36'}
     url = f'https://finance.yahoo.com/quote/{symbol}'
+    header = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36'}
     response = requests.get(url, headers = header)
     soup = BeautifulSoup(response.text, 'html.parser')
     #check bottom of page for copy and pasted code
@@ -39,9 +41,8 @@ def getData(symbol):
     stock['data']['Market Cap'].append(marketCap)
     stock['data']['PE Ratio'].append(PERatio)
     stock['data']['Days range'].append(dayRange)
-
     return stock
-
+'''''''''
 def getSoup(symbol):
     header = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36'}
@@ -60,8 +61,21 @@ def getChangeInPercent(symbol):
     soup = getSoup(symbol)
     return soup.find('div', {'class': 'D(ib) Mend(20px)'}).find_all('span')[1].text
 
+def getOpenAt(symbol):
+    soup = getSoup(symbol)
+    return soup.find('div', {'class':'D(ib) W(1/2) Bxz(bb) Pend(12px) Va(t) ie-7_D(i) smartphone_D(b) smartphone_W(100%) smartphone_Pend(0px) smartphone_BdY smartphone_Bdc($seperatorColor)'}).find_all('td')[1].text
 
+def getMarketCap(symbol):
+    soup = getSoup(symbol)
+    return soup.find('div', {'class':'D(ib) W(1/2) Bxz(bb) Pstart(12px) Va(t) ie-7_D(i) ie-7_Pos(a) smartphone_D(b) smartphone_W(100%) smartphone_Pstart(0px) smartphone_BdB smartphone_Bdc($seperatorColor)'}).find_all('td')[1].text
 
+def getPERatio(symbol):
+    soup =getSoup(symbol)
+    return  soup.find('div', {'class':'D(ib) W(1/2) Bxz(bb) Pstart(12px) Va(t) ie-7_D(i) ie-7_Pos(a) smartphone_D(b) smartphone_W(100%) smartphone_Pstart(0px) smartphone_BdB smartphone_Bdc($seperatorColor)'}).find_all('td')[3].text
+
+def getDailyRange(symbol):
+    soup = getSoup(symbol)
+    return soup.find('div',{'class':'D(ib) W(1/2) Bxz(bb) Pend(12px) Va(t) ie-7_D(i) smartphone_D(b) smartphone_W(100%) smartphone_Pend(0px) smartphone_BdY smartphone_Bdc($seperatorColor)'}).find_all('td')[9].text
 '''''''''
 for item in MyStocks:
     StockData.append(getData(item))
