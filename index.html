@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Stock Scraper</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">Gavin McDavitt's Stock Webscraper</a>
+    <a href="https://github.com/gavinmcdavitt" target ="_blank" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">GitHub</a>
+    <a a href="/graphs" target="_blank" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"> Show Graphs </a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 4</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-red w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">Gavin McDavitt's Stock Webscrapper</h1>
+  <p class="w3-xlarge">Using Python to Visualize Data</p>
+  <button href="/graphs" target ="_blank"class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Look at the dynamic graphs</button>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h1>How Does this Project work</h1>
+      <h5 class="w3-padding-32">
+        The different libraries that are needed for this project BeautifulSoup4, Flask, Matplotlib, sqlite3.<br>
+        You will need to have pip installed for this application.
+        <br>
+        Windows: &nbsp;<strong><i> py -m ensurepip --upgrade</i></strong>
+        <br>
+        Mac: &nbsp<strong><i>python -m ensurepip --upgrade</i></strong>
+        <br>
+        Linux: &nbsp; <strong> <i>python -m ensurepip --upgrade</i> </strong>
+        <br>
+      Here are the Necessary installs for this project:
+        <br>
+        Firstly, we must ensure that we have a virtual environment so that we do not download these libraries to our
+        entire system and just in our environment. To do this run this code in terminal.
+        <br>
+        <h2>Mac or Linux:</h2>
+        <b><i>mkdir projectname </i></b>
+        <br>
+        <b><i> cd projectname</i></b>
+        <br>
+        <b><i>python3 -m venv .venv</i></b>
+        <h2>Windows:</h2>
+        <b><i>mkdir projectname</i></b>
+        <br>
+        <b><i>cd myproject</i></b>
+        <br>
+        <b><i>py -3 -m venv .venv</i></b>
+        <br>
+        <h1>Activation of Environment:</h1>
+        <h2>Mac or Linux:</h2>
+        <br>
+        <b><i>. .venv/bin/activate</i></b>
+        <br>
+        <h2>Windows:</h2>
+        <b><i>.venv\Scripts\activate</i></b>
+        <br>
+        You should now see a (venv) in your shell prompt.
+        <br>
+        <h1>Remaining Libraries</h1>
+        <h2>Windows:</h2>
+        <b><i>pip install beautifulsoup4</i></b>
+        <br>
+        <b><i>pip install Flask</i></b>
+
+        <h2>Linux: </h2>
+        <b><i>Sudo pip3 install beautifulsoup4</i></b> or
+        <br>
+        <b><i>sudo apt-get install python3-bs4</i></b>
+        <br>
+        <b><i>pip install flask</i></b>
+
+        <h2>Mac:</h2>
+        <b><i>pip3 install beautifulsoup4</i></b>
+        <b><i>pip install Flask</i></b>
+      </h5>
+      <h3>About this project</h3>
+     <p class="w3-text-grey">Now that we have all of our libraries, I will explain the rest of the code. Yahoo finance
+    is an excellent website for scraping data about stocks. I use this data as a way, to represent the data
+    in a line graph on a flask web framework. We can use a combination of fstrings, and lists to find a list of
+    stocks that we will grab. The way Yahoo Finance structures their URLs:
+    <span style="color: red; display: inline;">the subdomain, second-level domain and top level domain</span> stay the same. For the
+    <span style="color: blue; display: inline;">subdirectory</span> will simply add a NYSE stock ticker symbol.
+    This symbol will change the URL to find information about that specific stock.
+    <a href="https://finance.yahoo.com/quote/">https://<span style="color: red; display: inline;">finance.yahoo.com</span><span style="color: blue; display: inline;">/quote/GOOGL</span></a>
+      </p>
+      <img src="https://i.imgur.com/0WgqmC4.png" alt="BeautifulSoup">
+    </div>
+
+    <div class="w3-third w3-center">
+      <i class="fa fa-anchor w3-padding-64 w3-text-red"></i>
+    </div>
+  </div>
+
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-32 w3-container">
+  <div class="w3-content">
+      <!-- Remove the coffee cup icon -->
+    </div>
+    <div class="w3-twothird w3-center">
+      <h1>The Uses of Databases</h1>
+      <h5 class="w3-padding-32">Now that you understand how the scraping works, you can see how I store the data.</h5>
+
+      <p class="w3-text-grey">I then create getter functions to call for the soup, It allows for me to use this called function in
+        a different file, that I named Stock_Database.py . Inside that function, I will call these functions. The reason
+      these functions are so long length wise, is that in the html of our target URL has a very large class name.</p>
+        <!-- Keep the images within the text content -->
+        <img src="https://i.imgur.com/2bbECW5.png" alt="Getter Functions">
+        <p class="w3-text-grey">I also will be creating an sqlite3 database. I chose for an sqlite3 database instead of other ways to store data
+        (JSON, MONGODB, MYSQL), for a few reasons. One, an sqlite3 database is very similar to a MYSQL database, however,
+        an sqlite3 database is optimized for smaller projects with less cross-traffic and does not need an additional server.
+        SQLite3 is accessed locally, making it quicker for querying so that it can be used for data visualization later. Third,
+        SQLite3 is public domain, and is FREE! Lastly, I will automate the python script so that It will continuously
+        scrape for data and place it into the database, that way I can manipulate the data later.</p>
+        <!-- Keep the images within the text content -->
+        <img src="https://i.imgur.com/jLJuTVm.png" alt="Database">
+    </div>
+</div>
+<div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+      <h1>Flask Application and Matplotlib</h1>
+      <p class="w3-text-grey">
+        Now that we understand how the data is stored, how do we display this data? To display this data you must
+        understand how Matplotlib and Flask works. The point of this assignment, was so that the graphs can be shown
+        dynamically. This means that if we receive more data in our database, it will display that data on the Flask
+        web framework. Flask will automatically update the framework, and show the graphs with updated points.
+      </p>
+      <img src ="https://i.imgur.com/9KfVcPs.png">
+      <p class ="w3-text-black">
+      First we make a connection to our database. We then create a figure (container) that holds one "ax". The ax
+        will be used as our plot. I then execute a query for a given stocker ticker symbol. I then fetch all of the data
+        from our connection. An import part of a dynamic graph, is the correct Y and X values. To ensure the values
+        are correct, I ensure to only grab the first column which is the price. For the X values, I simply find the
+        length of "data." This is the amount of times the webscrapper has been called and placed into the database. I
+        then plot the data, and set titles and labels. I also ensure that a legend will appear for the graph.
+
+        To ensure that the data is dynamic and not sent as a static image, I use the io library. I save the plot as an
+        image, and create an in-memory binary stream. I then encode the image in the variable buffer as base64 and then
+        it will decode it as UTF-8 string. It will result in a base64-encoded image as a string. I then return the string.
+        Below the method, "showgraph" you can see a second route that leads to a seperate page with multiple graphs.
+        In this function, I run a for loop through the list of stocks I made in the stockprices.py . I then return the
+        render_template, so that it will attach itself to a placeholder in a seperate html. If you click on Show Graphs
+        in the navigation bar, you can see result of the code.
+      </p>
+    </div>
+</div>
+
+<div class="w3-container w3-grey w3-center w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">Data Visualization</h1>
+  <p class = "w3-text-black">In the code below, you can see how I made a singular graph with multiple plots. I had
+  originally picked some random stocks and some blue chip tech stocks. I decided that since the price is relatively
+  similar it could look like a really cool graph (it did not). The code is extremely similar to how I made seperate
+  graphs, the only difference is that I run a loop through the tech stocks, and the same ax is used to plot each subplot.
+  I then have to save it as a base64 string and then return the entire graph. </p>
+
+  <img src ="https://i.imgur.com/Fb3kQgQ.png">
+  <h1>Dynamic Matplotlib Graph</h1>
+
+    <img src="{{ graph_data }}" alt="Graph"><!--- This is the Dynamic Graph-->
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+ </div>
+</footer>
+
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
+
+</div>
+</body>
+</html>

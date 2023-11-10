@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>All of the Graphs</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <style>
+a:link, a:visited {
+  background-color: #f44336;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color: red;
+  color:white;
+}
+
+</style>
+</head>
+<body>
+<h1 style="text-align: center;" >Show Multiple Graphs</h1>
+<a href="/" target="_blank">Return to Original Page</a>
+<br>
+<!-- Loop through the graph_data list and display the graphs -->
+{% for graph in graph_data %}
+    <img src="data:image/png;base64, {{ graph }}" alt="Stock Graph">
+{% endfor %}
+</body>
+</html>
