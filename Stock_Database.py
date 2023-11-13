@@ -15,6 +15,8 @@ c = conn.cursor()
 # 
 # # Execute the create table query for only if using RAM
 '''''''''''
+#Creates a table that will have the following data, I decided to always have all of the data be scraped in case,
+#it may be used later.
 create_table_query = """
 CREATE TABLE IF NOT EXISTS stocks (
 symbol TEXT,
@@ -29,6 +31,8 @@ dailyrange REAL
  """
 c.execute(create_table_query)
 # Define the symbol
+#This one function calls the previous functions made in stockprices.py, I then create an sqlite3 query and place the
+#data in the databse.
 def StockInfo():
     for s in stockprices.MyStocks:
         price = stockprices.getPrice(s)
@@ -49,35 +53,38 @@ def StockInfo():
 
     # Commit the changes to the database
     conn.commit()
-
-    # Query the database to retrieve the data for a specified symbol
-    # c.execute("SELECT * FROM stocks WHERE symbol = ?", (a,))
-
-    # query from all tables in database!
-    c.execute("SELECT * FROM stocks")
-
-def delete_entry():
+#A simplete delete function to organize the databse at a later time, if the data seems to be manipulated/incorrect.
+def delete_entry(symbol, s):
     with conn:
         c.execute("DELETE FROM stocks WHERE symbol=:symbol", {'symbol': 's'})
 
 
-# Close the connection
-
-def automate_scraping():
+#this function allows for multiple threads to be connected to our sqlite3 database. I use this to display the different
+#graphs on localhost:5000 and localhost:5000/graphs
+def write_thread():
     while True:
-        # Get the current date and time
-        now = datetime.datetime.now()
+        with conn:
+            now = datetime.datetime.now()
 
-        # Check if it's a weekday (Monday to Friday)
-        if now.weekday() < 5:
-            # Check if the current time is between 10:00 AM and 4:00 PM Eastern Standard Time
-            if datetime.time(10, 0) <= now.time() <= datetime.time(16, 0):
-                StockInfo()
-                print("automating")
-                res = c.fetchall()
-                print(res)
-            else:
-                print("sleeping")
-        # Sleep for 900 seconds (15 minutes) before the next iteration
-        time.sleep(300)
+            # Check if it's a weekday (Monday to Friday)
+            if now.weekday() < 5:
+                # Check if the current time is between 10:00 AM and 4:00 PM Eastern Standard Time
+                if datetime.time(10, 0) <= now.time() <= datetime.time(16, 0):
+                    StockInfo()
+                    print("automating")
+                else:
+                    print("sleeping")
+        # Sleep for an interval before the next iteration
+        time.sleep(900)
+
+# Start the write thread when the stock_database.py is run
+write_thread = threading.Thread(target=write_thread)
+write_thread.start()
+
+#to stop the flask application press CTRL + C (windows) or Command + C (MAC)
+if __name__ == "__main__":
+    try:
+        pass
+    except KeyboardInterrupt:
+        conn.close()
 
